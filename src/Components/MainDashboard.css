@@ -1,0 +1,133 @@
+:root {
+  --main-bg-color: rgba(255, 255, 255, 0.9);
+  --main-text-color: #333;
+  --info-text-color: #666;
+  --main-border-color: #e2e8f0;
+  --main-hover-bg-color: #edf2f7;
+  --main-button-bg: #3182ce;
+  --main-button-text: white;
+  --side-nav-bg: #2d3748;
+  --side-nav-text: white;
+  --close-button-bg: #e53e3e;
+  --close-button-text: white;
+  --card-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --main-bg-color: #24242486;
+    --main-text-color: white;
+    --info-text-color: #cbd5e0;
+    --main-border-color: #2d3748;
+    --main-hover-bg-color: #2d3748;
+    --main-button-bg: #63b3ed;
+    --main-button-text: black;
+    --side-nav-bg: #2d3748;
+    --side-nav-text: white;
+    --close-button-bg: #e53e3e;
+    --close-button-text: white;
+    --card-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+  }
+}
+
+.main-dashboard {
+  padding: 1rem;
+  transition: margin-left 0.3s ease-in-out;
+  color: var(--main-text-color);
+  
+}
+
+#imgg {
+  width: 80%;
+  height: 80%;
+  margin: 0 auto;
+  display: block;
+  background-color: #00000088;
+  backdrop-filter: blur(15px);
+
+}
+
+.main-dashboard.with-drawer {
+  margin-left: 250px;
+}
+
+.semester-title {
+  margin-bottom: 1.5rem;
+  padding-left: 5px;
+  font-family: "Montserrat", sans-serif;
+  font-optical-sizing: auto;
+  font-style: normal;
+  text-align: center;
+  
+}
+
+.subject-item {
+  cursor: pointer;
+  padding: 0.75rem;
+  border-radius: 0.25rem;
+  font-family: "Montserrat", sans-serif;
+  font-optical-sizing: auto;
+  font-style: normal;
+  margin-bottom: 0.5rem;
+  
+}
+
+.subject-item.selected {
+  background-color: var(--main-hover-bg-color);
+}
+
+.topic-list {
+  padding-left: 1rem;
+  font-family: "Montserrat", sans-serif;
+  font-optical-sizing: auto;
+  font-style: normal;
+  margin-top: 0.5rem;
+  
+}
+
+.topic-item {
+  cursor: pointer;
+  padding: 0.5rem;
+  border-radius: 0.25rem;
+  font-family: "Montserrat", sans-serif;
+  font-optical-sizing: auto;
+  font-style: normal;
+  margin-bottom: 0.5rem;
+  
+}
+
+#cardd{
+  margin-top: 90px;
+}
+
+.topic-item:hover {
+  background-color: #fc686f;
+}
+
+.subject-card {
+  cursor: pointer;
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s;
+  background-color: var(--main-bg-color);
+  backdrop-filter: blur(15px);
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: var(--card-shadow);
+  padding: 1rem;
+  
+}
+
+.subject-card:hover {
+  transform: scale(1.03);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+  background-color: #ff944ca2;
+  transition: transform 0.80s ease-in-out, box-shadow 0.2s;
+}
+
+.subject-card .chakra-heading {
+  font-size: 1.25rem;
+  margin-bottom: 0.5rem;
+}
+
+.subject-card .chakra-collapse {
+  overflow: hidden;
+}

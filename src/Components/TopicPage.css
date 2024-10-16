@@ -1,0 +1,83 @@
+
+.centered-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+  box-sizing: border-box;
+  margin-top: 8.5vh;
+}
+
+.content-container {
+  padding: 15px;
+  max-width: 900px;
+  width: 70%; 
+  margin: auto;
+  box-sizing: border-box;
+  background-color: rgba(255, 255, 255, 0.534);
+  backdrop-filter: blur(15px);
+  border-radius: 8px; 
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); 
+
+}
+
+.video-container {
+  position: relative;
+  padding-bottom: 56.25%; 
+  height: 0;
+  overflow: hidden;
+}
+
+.video-container iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+#zz{
+  background-color: rgba(255, 255, 255, 0.534);
+  backdrop-filter: blur(15px);
+}
+
+
+
+
+
+#kk {
+  color: rgb(0, 0, 0);
+  font-family: "Montserrat", sans-serif;
+  font-optical-sizing: auto;
+  font-style: normal;
+}
+
+@media (prefers-color-scheme: dark) {
+  #kk {
+    color: rgb(255, 255, 255);
+  }
+  #zz{
+    background-color: rgba(0, 0, 0, 0.534);
+    backdrop-filter: blur(15px);
+  }
+}
+
+#btt{
+ float: right;
+}
+
+
+
+
+@media (max-width: 480px) {
+  .centered-container {
+    margin-top: 3vh;
+  }
+
+  .content-container {
+    width: 95%; 
+    padding: 10px;
+    margin-top: 80px; 
+  }
+  
+}

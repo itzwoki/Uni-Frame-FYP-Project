@@ -1,0 +1,692 @@
+// File: \Users\Hp\Desktop\Voice\demo\src\Components\HomePage.jsx
+// HomePage.js
+import React from 'react';
+import { Button, Container, Grid } from '@mui/material';
+import { Link } from 'react-router-dom';
+
+const HomePage = () => {
+  return (
+    <Container>
+      <Grid container spacing={2} justifyContent="center" alignItems="center" style={{ height: '100vh' }}>
+        <Grid item>
+          <Button component={Link} to="/login" variant="contained" color="primary">
+            Login
+          </Button>
+        </Grid>
+        <Grid item>
+          <Button component={Link} to="/signup" variant="contained" color="secondary">
+            Sign Up
+          </Button>
+        </Grid>
+      </Grid>
+    </Container>
+  );
+};
+
+export default HomePage;
+
+// File: \Users\Hp\Desktop\Voice\demo\src\Components\LoginPage.jsx
+import React, { useState } from 'react';
+import { Container, Typography, TextField, Button, Link } from '@mui/material';
+
+const LoginPage = () => {
+  const [formData, setFormData] = useState({
+    username: '',
+    password: ''
+  });
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await fetch('http://localhost:5000/api/auth/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(formData)
+      });
+      if (response.ok) {
+        // Redirect to main dashboard upon successful login
+        window.location.href = '/dashboard';
+      } else {
+        console.error('Login failed:', response.statusText);
+      }
+    } catch (error) {
+      console.error('Error:', error);
+    }
+  };
+
+  return (
+    <Container maxWidth="sm">
+      <Typography variant="h4" align="center" gutterBottom>
+        Login
+      </Typography>
+      <form onSubmit={handleSubmit}>
+        <TextField
+          name="username"
+          label="Username"
+          value={formData.username}
+          onChange={handleChange}
+          fullWidth
+          required
+        />
+        <TextField
+          name="password"
+          label="Password"
+          type="password"
+          value={formData.password}
+          onChange={handleChange}
+          fullWidth
+          required
+        />
+        <Button type="submit" variant="contained" color="primary" fullWidth>
+          Login
+        </Button>
+      </form>
+      <Typography variant="body1" align="center">
+        Don't have an account? <Link href="/signup">Sign Up</Link>
+      </Typography>
+    </Container>
+  );
+};
+
+export default LoginPage;
+
+// File: \Users\Hp\Desktop\Voice\demo\src\Components\MainDashboard.jsx
+// MainDashboard.jsx
+import React, { useState, useEffect } from 'react';
+import { AppBar, Toolbar, Typography, Drawer, List, ListItem, ListItemText } from '@mui/material';
+import { Route, useRouteMatch, Link } from 'react-router-dom';
+import SemesterSubjects from './SemesterSubjects';
+
+const MainDashboard = () => {
+  const { url } = useRouteMatch();
+  const [userData, setUserData] = useState({});
+
+  useEffect(() => {
+    // Fetch user data from backend API
+    const fetchUserData = async () => {
+      try {
+        const response = await fetch('/api/user'); // Assuming this endpoint returns user data
+        if (response.ok) {
+          const data = await response.json();
+          setUserData(data);
+        } else {
+          console.error('Failed to fetch user data');
+        }
+      } catch (error) {
+        console.error('Error fetching user data:', error);
+      }
+    };
+
+    fetchUserData();
+  }, []);
+
+  return (
+    <div>
+      <AppBar>
+        <Toolbar>
+          <Typography variant="h6">Main Dashboard</Typography>
+          <Typography variant="subtitle1">
+            {userData.universityname && `University: ${userData.universityname}`}
+          </Typography>
+          <Typography variant="subtitle1">
+            {userData.username && `Username: ${userData.username}`}
+          </Typography>
+        </Toolbar>
+      </AppBar>
+      {/* Drawer for sidebar */}
+      <Drawer variant="permanent">
+        <List>
+          {[1, 2, 3, 4, 5, 6, 7, 8].map((semester) => (
+            <ListItem button key={semester} component={Link} to={`${url}/semester${semester}`}>
+              <ListItemText primary={`Semester ${semester}`} />
+            </ListItem>
+          ))}
+        </List>
+      </Drawer>
+      {/* Route for displaying semester subjects */}
+      <Route path={`${url}/semester:semesterNumber`} component={SemesterSubjects} />
+    </div>
+  );
+};
+
+export default MainDashboard;
+
+// File: \Users\Hp\Desktop\Voice\demo\src\Components\SignupPage.jsx
+import React, { useState } from 'react';
+import { Container, Typography, TextField, Button, Link } from '@mui/material';
+
+const SignupPage = () => {
+  const [formData, setFormData] = useState({
+    username: '',
+    password: '',
+    firstname: '',
+    lastname: '',
+    universityname: '',
+    degree: '',
+    phonenumber: '',
+    emailaddress: ''
+  });
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await fetch('http://localhost:5000/api/auth/signup', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(formData)
+      });
+      if (response.ok) {
+        // Navigate to the login page
+        window.location.href = '/login';
+      } else {
+        console.error('Signup failed:', response.statusText);
+      }
+    } catch (error) {
+      console.error('Error:', error);
+    }
+  };
+
+  return (
+    <Container maxWidth="sm">
+      <Typography variant="h4" align="center" gutterBottom>
+        Sign Up
+      </Typography>
+      <form onSubmit={handleSubmit}>
+        <TextField
+          name="username"
+          label="Username"
+          value={formData.username}
+          onChange={handleChange}
+          fullWidth
+          required
+        />
+        <TextField
+          name="password"
+          label="Password"
+          type="password"
+          value={formData.password}
+          onChange={handleChange}
+          fullWidth
+          required
+        />
+        <TextField
+          name="firstname"
+          label="First Name"
+          value={formData.firstname}
+          onChange={handleChange}
+          fullWidth
+          required
+        />
+        <TextField
+          name="lastname"
+          label="Last Name"
+          value={formData.lastname}
+          onChange={handleChange}
+          fullWidth
+          required
+        />
+        <TextField
+          name="universityname"
+          label="University Name"
+          value={formData.universityname}
+          onChange={handleChange}
+          fullWidth
+          required
+        />
+        <TextField
+          name="degree"
+          label="Degree"
+          value={formData.degree}
+          onChange={handleChange}
+          fullWidth
+          required
+        />
+        <TextField
+          name="phonenumber"
+          label="Phone Number"
+          value={formData.phonenumber}
+          onChange={handleChange}
+          fullWidth
+          required
+        />
+        <TextField
+          name="emailaddress"
+          label="Email Address"
+          type="email"
+          value={formData.emailaddress}
+          onChange={handleChange}
+          fullWidth
+          required
+        />
+        <Button type="submit" variant="contained" color="primary" fullWidth>
+          Sign Up
+        </Button>
+      </form>
+      <Typography variant="body1" align="center">
+        Already have an account? <Link href="/login">Login</Link>
+      </Typography>
+    </Container>
+  );
+};
+
+export default SignupPage;
+
+// File: \Users\Hp\Desktop\Voice\demo\src\App.css
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+// File: \Users\Hp\Desktop\Voice\demo\src\App.js
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+
+import HomePage from './Components/HomePage';
+import LoginPage from './Components/LoginPage';
+import SignupPage from './Components/SignupPage';
+
+const App = () => {
+  return (
+    <Router>
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/signup" element={<SignupPage />} />
+      </Routes>
+    </Router>
+  );
+};
+
+export default App;
+
+// File: \Users\Hp\Desktop\Voice\demo\src\index.css
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+// File: \Users\Hp\Desktop\Voice\demo\src\index.js
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import './index.css';
+import App from './App';
+import reportWebVitals from './reportWebVitals';
+
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>
+);
+
+// If you want to start measuring performance in your app, pass a function
+// to log results (for example: reportWebVitals(console.log))
+// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
+reportWebVitals();
+
+// File: \Users\Hp\Desktop\Voice\demo\src\reportWebVitals.js
+const reportWebVitals = onPerfEntry => {
+  if (onPerfEntry && onPerfEntry instanceof Function) {
+    import('web-vitals').then(({ getCLS, getFID, getFCP, getLCP, getTTFB }) => {
+      getCLS(onPerfEntry);
+      getFID(onPerfEntry);
+      getFCP(onPerfEntry);
+      getLCP(onPerfEntry);
+      getTTFB(onPerfEntry);
+    });
+  }
+};
+
+export default reportWebVitals;
+
+// File: \Users\Hp\Desktop\Voice\demo\src\setupTests.js
+// jest-dom adds custom jest matchers for asserting on DOM nodes.
+// allows you to do things like:
+// expect(element).toHaveTextContent(/react/i)
+// learn more: https://github.com/testing-library/jest-dom
+import '@testing-library/jest-dom';
+
+// File: \Users\Hp\Desktop\Voice\demo\src\Components\HomePage.jsx
+// HomePage.js
+import React from 'react';
+import { Button, Container, Grid } from '@mui/material';
+import { Link } from 'react-router-dom';
+
+const HomePage = () => {
+  return (
+    <Container>
+      <Grid container spacing={2} justifyContent="center" alignItems="center" style={{ height: '100vh' }}>
+        <Grid item>
+          <Button component={Link} to="/login" variant="contained" color="primary">
+            Login
+          </Button>
+        </Grid>
+        <Grid item>
+          <Button component={Link} to="/signup" variant="contained" color="secondary">
+            Sign Up
+          </Button>
+        </Grid>
+      </Grid>
+    </Container>
+  );
+};
+
+export default HomePage;
+
+// File: \Users\Hp\Desktop\Voice\demo\src\Components\LoginPage.jsx
+import React, { useState } from 'react';
+import { Container, Typography, TextField, Button, Link } from '@mui/material';
+
+const LoginPage = () => {
+  const [formData, setFormData] = useState({
+    username: '',
+    password: ''
+  });
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await fetch('http://localhost:5000/api/auth/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(formData)
+      });
+      if (response.ok) {
+        // Redirect to main dashboard upon successful login
+        window.location.href = '/dashboard';
+      } else {
+        console.error('Login failed:', response.statusText);
+      }
+    } catch (error) {
+      console.error('Error:', error);
+    }
+  };
+
+  return (
+    <Container maxWidth="sm">
+      <Typography variant="h4" align="center" gutterBottom>
+        Login
+      </Typography>
+      <form onSubmit={handleSubmit}>
+        <TextField
+          name="username"
+          label="Username"
+          value={formData.username}
+          onChange={handleChange}
+          fullWidth
+          required
+        />
+        <TextField
+          name="password"
+          label="Password"
+          type="password"
+          value={formData.password}
+          onChange={handleChange}
+          fullWidth
+          required
+        />
+        <Button type="submit" variant="contained" color="primary" fullWidth>
+          Login
+        </Button>
+      </form>
+      <Typography variant="body1" align="center">
+        Don't have an account? <Link href="/signup">Sign Up</Link>
+      </Typography>
+    </Container>
+  );
+};
+
+export default LoginPage;
+
+// File: \Users\Hp\Desktop\Voice\demo\src\Components\MainDashboard.jsx
+// MainDashboard.jsx
+import React, { useState, useEffect } from 'react';
+import { AppBar, Toolbar, Typography, Drawer, List, ListItem, ListItemText } from '@mui/material';
+import { Route, useRouteMatch, Link } from 'react-router-dom';
+import SemesterSubjects from './SemesterSubjects';
+
+const MainDashboard = () => {
+  const { url } = useRouteMatch();
+  const [userData, setUserData] = useState({});
+
+  useEffect(() => {
+    // Fetch user data from backend API
+    const fetchUserData = async () => {
+      try {
+        const response = await fetch('/api/user'); // Assuming this endpoint returns user data
+        if (response.ok) {
+          const data = await response.json();
+          setUserData(data);
+        } else {
+          console.error('Failed to fetch user data');
+        }
+      } catch (error) {
+        console.error('Error fetching user data:', error);
+      }
+    };
+
+    fetchUserData();
+  }, []);
+
+  return (
+    <div>
+      <AppBar>
+        <Toolbar>
+          <Typography variant="h6">Main Dashboard</Typography>
+          <Typography variant="subtitle1">
+            {userData.universityname && `University: ${userData.universityname}`}
+          </Typography>
+          <Typography variant="subtitle1">
+            {userData.username && `Username: ${userData.username}`}
+          </Typography>
+        </Toolbar>
+      </AppBar>
+      {/* Drawer for sidebar */}
+      <Drawer variant="permanent">
+        <List>
+          {[1, 2, 3, 4, 5, 6, 7, 8].map((semester) => (
+            <ListItem button key={semester} component={Link} to={`${url}/semester${semester}`}>
+              <ListItemText primary={`Semester ${semester}`} />
+            </ListItem>
+          ))}
+        </List>
+      </Drawer>
+      {/* Route for displaying semester subjects */}
+      <Route path={`${url}/semester:semesterNumber`} component={SemesterSubjects} />
+    </div>
+  );
+};
+
+export default MainDashboard;
+
+// File: \Users\Hp\Desktop\Voice\demo\src\Components\SignupPage.jsx
+import React, { useState } from 'react';
+import { Container, Typography, TextField, Button, Link } from '@mui/material';
+
+const SignupPage = () => {
+  const [formData, setFormData] = useState({
+    username: '',
+    password: '',
+    firstname: '',
+    lastname: '',
+    universityname: '',
+    degree: '',
+    phonenumber: '',
+    emailaddress: ''
+  });
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await fetch('http://localhost:5000/api/auth/signup', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(formData)
+      });
+      if (response.ok) {
+        // Navigate to the login page
+        window.location.href = '/login';
+      } else {
+        console.error('Signup failed:', response.statusText);
+      }
+    } catch (error) {
+      console.error('Error:', error);
+    }
+  };
+
+  return (
+    <Container maxWidth="sm">
+      <Typography variant="h4" align="center" gutterBottom>
+        Sign Up
+      </Typography>
+      <form onSubmit={handleSubmit}>
+        <TextField
+          name="username"
+          label="Username"
+          value={formData.username}
+          onChange={handleChange}
+          fullWidth
+          required
+        />
+        <TextField
+          name="password"
+          label="Password"
+          type="password"
+          value={formData.password}
+          onChange={handleChange}
+          fullWidth
+          required
+        />
+        <TextField
+          name="firstname"
+          label="First Name"
+          value={formData.firstname}
+          onChange={handleChange}
+          fullWidth
+          required
+        />
+        <TextField
+          name="lastname"
+          label="Last Name"
+          value={formData.lastname}
+          onChange={handleChange}
+          fullWidth
+          required
+        />
+        <TextField
+          name="universityname"
+          label="University Name"
+          value={formData.universityname}
+          onChange={handleChange}
+          fullWidth
+          required
+        />
+        <TextField
+          name="degree"
+          label="Degree"
+          value={formData.degree}
+          onChange={handleChange}
+          fullWidth
+          required
+        />
+        <TextField
+          name="phonenumber"
+          label="Phone Number"
+          value={formData.phonenumber}
+          onChange={handleChange}
+          fullWidth
+          required
+        />
+        <TextField
+          name="emailaddress"
+          label="Email Address"
+          type="email"
+          value={formData.emailaddress}
+          onChange={handleChange}
+          fullWidth
+          required
+        />
+        <Button type="submit" variant="contained" color="primary" fullWidth>
+          Sign Up
+        </Button>
+      </form>
+      <Typography variant="body1" align="center">
+        Already have an account? <Link href="/login">Login</Link>
+      </Typography>
+    </Container>
+  );
+};
+
+export default SignupPage;
+

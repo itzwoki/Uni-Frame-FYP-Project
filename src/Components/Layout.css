@@ -1,0 +1,181 @@
+@import '~bulma/css/bulma.min.css';
+
+:root {
+  --text-color-light: black;
+  --text-color-dark: white;
+  --primary-color-light: #ffffff8f;
+  --primary-color-dark: #00000062;
+  --button-bg-light: #3f51b5;
+  --button-bg-dark: #3182ce;
+}
+
+#mm{
+  height: 100vh;
+}
+
+body {
+  background-color: var(--background-color-light);
+  color: var(--text-color-light);
+  backdrop-filter: blur(15px);
+  margin: 0;
+
+  overflow: hidden;
+}
+
+@media (prefers-color-scheme: dark) {
+  body {
+    background-color: var(--background-color-dark);
+    color: var(--text-color-dark);    
+  }
+  
+}
+
+.custom-menu-list {
+  background-color: #1a202c3a;
+  backdrop-filter: blur(15px); 
+  color: white; 
+  
+}
+
+.custom-menu-list .chakra-menu__item {
+  background-color: transparent;
+  color: inherit; 
+}
+
+.custom-menu-list .chakra-menu__item:hover {
+  background-color: #005eff; 
+}
+
+
+
+#try {
+  background-color: #1A202C;
+  
+}
+
+.top-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.5rem;
+  background-color: var(--primary-color-light);
+  color: rgb(0, 0, 0);
+  backdrop-filter: blur(15px);
+  box-shadow: 0 3px 5px 2px rgba(0, 0, 0, 0.411);
+}
+
+#bgvid {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: -1;
+}
+
+@media (max-width: 768px) {
+  #bgvid {
+    width: 100%;
+    height: 100%;
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  .top-bar {
+    background-color: var(--primary-color-dark);
+    backdrop-filter: blur(15px);
+    color: #ffffff;
+  }
+}
+
+.title {
+  font-weight: bold;
+  font-size: 1.5rem;
+  color: #1A202C;
+}
+
+.info-text {
+  align-items: center;
+  color: #000000;
+  font-family: "Montserrat", sans-serif;
+  font-optical-sizing: auto;
+  font-style: normal;
+
+}
+
+#logol {
+  height: 60px;
+  margin-left: 30px;
+}
+
+#in{
+  background-color: #e9e9e9;
+  color: #000000;
+}
+
+#ol{
+  margin-top: 7px;
+  
+}
+
+#in:hover{
+  background-color: #ffb70f;
+  color: #ffffff;
+}
+
+.dropdown-menu.show {
+  background-color: #e9e9e9;
+  backdrop-filter: blur(15px);
+  transform: translate3d(0, 40px, 0px) !important;
+  top: 0 !important;
+  left: auto !important;
+  right: 0 !important;
+  font-family: "Montserrat", sans-serif;
+  font-optical-sizing: auto;
+  font-style: normal;
+}
+
+.main-content {
+  padding: 1rem;
+  background-color: var(--background-color-light);
+  height: calc(100vh - 64px);
+  overflow: auto;
+}
+
+@media (prefers-color-scheme: dark) {
+  .main-content {
+    background-color: var(--background-color-dark);
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  #in{
+    background-color: #313131;
+    color: #FFFFFF;
+    
+  }
+  
+  #in:hover{
+    background-color: #ffb70f;
+    color: #1A202C;
+  }
+  
+  .dropdown-menu.show {
+    background-color: #313131;
+    backdrop-filter: blur(15px);
+    transform: translate3d(0, 40px, 0px) !important;
+    top: 0 !important;
+    left: auto !important;
+    right: 0 !important;
+  }
+
+}
+@media (prefers-color-scheme: dark) {
+  .info-text{
+    color: #ffffff;
+  }
+
+}
+
+

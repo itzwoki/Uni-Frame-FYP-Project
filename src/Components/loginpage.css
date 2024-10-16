@@ -1,0 +1,144 @@
+
+
+:root {
+    --background-color: #f0f2f5;
+    --box-background-color: #ffffff;
+    --text-color: #333;
+    --input-background-color: #ffffff;
+    --input-border-color: #ddd;
+    --button-background-color: #4CAF50;
+    --button-hover-color: #45a049;
+    --button-text-color: #fff;
+    --button-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --background-color: #121212;
+      --box-background-color: #1e1e1e;
+      --text-color: #ffffff;
+      --input-background-color: #2c2c2c;
+      --input-border-color: #140606;
+      --button-background-color: #4CAF50;
+      --button-hover-color: #388E3C;
+      --button-text-color: #fff;
+      --button-shadow: 0 4px 6px rgba(0, 0, 0, 0.4);
+    }
+  }
+
+  .toast {
+    position: fixed;
+    top: 80%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1050;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-width: 250px;
+    max-width: 90%;
+    text-align: center;
+    background-color: rgba(0, 0, 0, 0.521); /* Background color with some transparency */
+    color: white;
+    padding: 1em;
+    border-radius: 4px;
+    visibility: hidden; /* Start hidden */
+    opacity: 0; /* Fully transparent */
+    transition: visibility 0s linear 0.3s, opacity 0.3s; /* Transition for fade effect */
+  }
+  
+  .toast.show {
+    visibility: visible; /* Make it visible */
+    opacity: 1; /* Fully opaque */
+    transition: opacity 0.3s; /* Transition for fade effect */
+  }
+  
+  
+
+  .section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: var(--background-color);
+  }
+  
+
+  .box {
+    border-radius: 8px;
+    padding: 2rem;
+    background-color: var(--box-background-color);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  }
+  
+
+  .title {
+    font-size: 2rem;
+    font-weight: bold;
+    color: var(--text-color);
+  }
+  
+
+  .input,
+  .select select {
+    border-radius: 4px;
+    border: 1px solid var(--input-border-color);
+    padding: 0.2rem;
+    font-size: 1rem;
+    background-color: var(--input-background-color);
+    color: var(--text-color);
+  }
+  
+
+  .label {
+    font-weight: bold;
+    color: var(--text-color);
+    
+  }
+  
+
+  #button {
+    background-color: var(--button-background-color);
+    border: none;
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    border-radius: 20px;
+    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+    color: var(--button-text-color);
+    box-shadow: var(--button-shadow);
+    cursor: pointer;
+    display: block;
+    margin: 0 auto;
+    text-align: center;
+    height: 50px;
+  }
+  
+  #button:hover {
+    background-color: var(--button-hover-color);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
+  }
+  
+
+  .field {
+    margin-bottom: 1rem;
+  }
+  
+
+  .select select {
+    width: 100%;
+  }
+  
+#fonts{
+  font-family: "Montserrat", sans-serif;
+  font-optical-sizing: auto;
+  font-style: normal;
+}
+
+@media (prefers-color-scheme: dark) {
+  #fontss{
+    color: rgb(255, 255, 255);
+  }
+
+}
+

@@ -1,0 +1,143 @@
+
+@import '~bulma/css/bulma.min.css';
+
+
+.box {
+  max-width: 400px; 
+  margin: 0 auto; 
+  padding-top: 2rem; 
+  background: rgba(255, 255, 255, 0.7); 
+  padding: 2rem;
+  border-radius: 8px;
+
+  
+}
+
+#bgvid1 {
+  position: fixed;
+  object-fit: cover;
+}
+
+.title {
+  font-size: 2rem;
+  font-weight: 800;
+  text-align: center; 
+  font-family: "Montserrat", sans-serif;
+  font-optical-sizing: auto;
+  font-style: normal;
+}
+
+.input,
+.select select {
+  border-radius: 4px;
+  border: 1px solid rgba(218, 218, 218, 0.5); 
+  padding: 0.5rem; 
+  font-size: 1rem;
+  margin-bottom: 1rem; 
+  background: rgba(255, 255, 255, 0.8); 
+}
+
+.input:focus,
+.select select:focus {
+  border-color: var(--input-focus-border-color, #ff934c) !important; 
+  box-shadow: 0 0 0 0.2rem rgba(255, 153, 51, 0.25) !important; 
+  outline: none; 
+}
+
+
+.input:not(:last-child),
+.select:not(:last-child) select {
+  margin-bottom: 1.5rem;
+}
+
+.label {
+  font-weight: bold;
+  font-family: "Montserrat", sans-serif;
+  font-optical-sizing: auto;
+  font-style: normal;
+}
+
+
+#dropshot{
+  font-family: "Montserrat", sans-serif;
+  font-optical-sizing: auto;
+  font-style: normal;
+}
+
+#dropshot2{
+    font-family: "Montserrat", sans-serif;
+  font-optical-sizing: auto;
+  font-style: normal;
+}
+#dropshot2:hover{
+  background-color:#fc686f ;
+}
+
+#button {
+  background-color: #4CAF50; 
+  border: none;
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  border-radius: 20px;
+  transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+  color: #fff; 
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  display: block;
+  margin: 1rem auto 0; 
+  text-align: center;
+  height: 50px;
+}
+
+#button:hover {
+  background-color: #45a049; 
+  transform: translateY(-2px);
+  box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
+}
+
+
+:root {
+  --background-color: #f0f2f5;
+  --box-background-color: rgba(255, 255, 255, 0.7);
+  --box-background-color-dark: rgba(30, 30, 30, 0.7);
+  --text-color: #333;
+  --input-background-color: rgba(255, 255, 255, 0.8);
+  --input-background-color-dark: rgba(44, 44, 44, 0.8);
+  --input-border-color: rgba(218, 218, 218, 0.5);
+  --button-background-color: #4CAF50;
+  --input-focus-border-color: #ff934c;
+  --button-hover-color: #45a049;
+  --button-text-color: #fff;
+  --button-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background-color: #121212;
+    --box-background-color: rgba(30, 30, 30, 0.7);
+    --text-color: #ffffff;
+    --input-background-color: rgba(44, 44, 44, 0.8);
+    --input-border-color: rgba(68, 68, 68, 0.5);
+    --input-focus-border-color: #ff934c;
+    --button-background-color: #4CAF50;
+    --button-hover-color: #388E3C;
+    --button-text-color: #fff;
+    --button-shadow: 0 4px 6px rgba(0, 0, 0, 0.4);
+  }
+}
+
+
+body {
+  background-color: var(--background-color);
+  color: var(--text-color);
+}
+
+.box {
+  background: var(--box-background-color);
+}
+
+.input,
+.select select {
+  background: var(--input-background-color);
+  border-color: var(--input-border-color);
+}
